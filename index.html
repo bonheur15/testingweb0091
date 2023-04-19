@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="body">
+        <div id="chat-body">
+            <div id="title">
+                <div id="label">Welcome,</div>
+                <div id="exit-chat">Exit chat</div>
+            </div>
+            <div id="body-chat"></div>
+            <div id="bottom">
+                <input type="text" id="msg">
+                <div id="btn-send" onclick="Send()">Send</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<style>
+    #body{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        inset: 0;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+    }
+    #chat-body{
+        width: 450px;
+        height: 450px;
+        border-color: black;
+        border-radius: 5px;
+        border-style: solid;
+        border-width: 4px;
+        padding: 10px 20px;
+        background: #ececec;
+    }
+    #title{
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        align-content: center;
+    }
+    #label{
+        width: fit-content;
+        height: fit-content;
+        font-size: 25px;
+    }
+    #exit-chat{
+        width: fit-content;
+        height: fit-content;
+        background:#c12928;
+        padding: 10px 10px;
+        color: white;
+        border-radius: 5px;
+    }
+    #body-chat{
+        width: 100%;
+        height: 300px;
+        border-radius: 5px;
+        border-style: solid;
+        border-width: 2px;margin-top: 10px;
+        border-color: rgba(0, 0, 0, 0.23);
+        background-color: white;
+    }
+    #bottom{
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        margin-top: 30px;
+        align-items: center;
+        align-content: center;
+    }
+    #bottom input{
+        width: calc(100% - 80px);
+        height: 30px;
+        
+    }
+    #bottom #btn-send{
+        width: fit-content;
+        height: fit-content;
+        padding: 8px 15px;
+        background-color:#ff9700 ;
+        margin: 10px;
+        color: white;
+        border-style: solid;
+        border-width: 2px;
+        border-color: #ea6300;
+        cursor: pointer;
+    }
+</style>
+<script>
+    function Send(){
+        var msg = document.getElementById("msg").value;
+        document.getElementById("msg").value = "";
+        fetch("http://localhost:9000/send_message?msg="+msg);
+    }
+    setInterval(() => {
+        fetch("http://localhost:9000/messages")      
+        .then(result=>result.json())
+        .then((a)=>{
+
+            document.getElementById("body-chat").innerHTML = "";
+            a.forEach(item => {
+                document.getElementById("body-chat").innerHTML += item+"<br>";
+            });
+        });
+    }, 1000);
+  
+
+
+    function Test(){
+        fetch("https://pokeapi.co/api/v2/pokemon/ditto")
+        .then(result=>result.json())
+        .then((a)=>{
+            console.log(a);
+        })
+    }
+
+</script>
+</html>
