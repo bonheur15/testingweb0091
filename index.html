@@ -104,10 +104,10 @@
     function Send(){
         var msg = document.getElementById("msg").value;
         document.getElementById("msg").value = "";
-        fetch("http://localhost:9000/send_message?msg="+msg);
+        fetch("https://hjskjksaldad.onrender.com/send_message?msg="+msg);
     }
     setInterval(() => {
-        fetch("http://localhost:9000/messages")      
+        fetch("https://hjskjksaldad.onrender.com/messages")      
         .then(result=>result.json())
         .then((a)=>{
 
